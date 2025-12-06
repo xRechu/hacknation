@@ -1,0 +1,8 @@
+# Ignore model outputs, data, and large files
+outputs/
+*.jsonl
+*.safetensors
+*.pt
+*.bin
+.DS_Store
+.venv/
