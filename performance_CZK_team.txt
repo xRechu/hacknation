@@ -1,5 +1,5 @@
-Time: <fill_seconds>  # processing time in seconds (exclude model load)
-Hardware: <CPU|GPU> - <model_name> (e.g., GPU - NVIDIA V100 16GB)
-API: NO  # external API usage
-Model: allegro/herbert-base-cased finetuned (checkpoint: outputs/herbert-ner-local)
-Notes: Batch <batch_used>, seq_len default tokenizer settings.
+Time: 6 seconds 
+Hardware: GPU - Apple M1 16GB RAM (MacBook Pro)  
+API: NO 
+Model: allegro/herbert-base-cased finetuned (checkpoint: outputs/herbert-ner)
+Notes: inference liniowo linia-po-linii, threshold=0.5, regex pre-mask (PESEL/email/phone/IBAN/doc), max_length=512.

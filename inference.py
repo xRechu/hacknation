@@ -149,6 +149,7 @@ def main():
     parser.add_argument("--model", required=True, help="Path to trained model directory")
     parser.add_argument("--text", help="Text to anonymize")
     parser.add_argument("--file", help="File with lines to anonymize")
+    parser.add_argument("--output", help="Optional output file; if not set, prints to stdout")
     parser.add_argument("--device", help="Device (cpu, cuda, mps)")
     parser.add_argument("--threshold", type=float, default=0.5, help="Probability threshold")
     
@@ -160,11 +161,25 @@ def main():
         print(f"Original: {args.text}")
         print(f"Anonymized: {anon.anonymize(args.text)}")
     elif args.file:
+        out_lines = []
         with open(args.file, 'r') as f:
             for line in f:
-                line = line.strip()
-                if line:
-                    print(anon.anonymize(line))
+                # Preserve line breaks; do not drop empty lines
+                raw = line.rstrip("\n")
+                if raw:
+                    out_lines.append(anon.anonymize(raw))
+                else:
+                    out_lines.append("")
+
+        if args.output:
+            with open(args.output, 'w') as fout:
+                for i, l in enumerate(out_lines):
+                    fout.write(l)
+                    if i != len(out_lines) - 1:
+                        fout.write("\n")
+        else:
+            for l in out_lines:
+                print(l)
     else:
         print("Please provide --text or --file")
 
